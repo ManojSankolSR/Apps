@@ -24,6 +24,10 @@ samples, guidance on mobile development, and a full API reference.
 ## Features
 User Authentication: Secure user registration and login using Firebase Authentication.
 
+#### Login Options
+ Login using google 
+ Login Using Email and Password
+
 Real-time Data Sync: Notes are synchronized in real-time across devices using Firestore Database.
 
 Create and Edit Notes: Add new notes and edit existing ones effortlessly.
