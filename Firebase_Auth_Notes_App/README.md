@@ -1,6 +1,11 @@
 # Flutter_Notes_App
 
-A new Flutter project.
+A new Flutter Notes App
+
+This Flutter application allows users to create, edit, and manage notes while utilizing Firebase Authentication for user authentication and Firestore Database for real-time data storage. With an intuitive interface and seamless integration of Firebase services, managing your notes has never been easier.
+
+
+
 
 ## Getting Started
 
