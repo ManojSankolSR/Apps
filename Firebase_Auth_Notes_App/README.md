@@ -28,10 +28,6 @@ Real-time Data Sync: Notes are synchronized in real-time across devices using Fi
 
 Create and Edit Notes: Add new notes and edit existing ones effortlessly.
 
-Rich Text Support: Format your notes with a variety of text styles and formatting options.
-
-Offline Access: Access and edit your notes even when you're offline. Changes will be synced once you're back online.
-
 Responsive Design: The app provides a consistent user experience across different screen sizes.
 
 ## Installation
@@ -55,35 +51,35 @@ To customize the app for your needs, you can make changes in the following files
 lib/required-files: Update Firebase configuration settings.
 
 ## Dependencies
-# Flutter
-# Firebase Core
-# Firebase Authentication
- # cupertino_icons
- # curved_navigation_bar
- # animations
- # flutter_staggered_grid_view
- # flutter_riverpod
- # uuid
- # random_color
- # path_provider
- # path
- # sqflite: 
- # animated_icon
- # intl
- # flutter_native_splash
- # firebase_core
- # firebase_auth
- # google_sign_in
- # cloud_firestore
- # gradient_borders
- # gradient_widgets
- # awesome_snackbar_content
- # flutter_svg
- # simple_gradient_text
- # loading_animation_widget
- # lottie
- # page_transition
- # dotlottie_loader
+### Flutter
+### Firebase Core
+### Firebase Authentication
+ ### cupertino_icons
+ ### curved_navigation_bar
+ ### animations
+ ### flutter_staggered_grid_view
+ ### flutter_riverpod
+ ### uuid
+ ### random_color
+ ### path_provider
+ ### path
+ ### sqflite: 
+ ### animated_icon
+ ### intl
+ ### flutter_native_splash
+ ### firebase_core
+ ### firebase_auth
+ ### google_sign_in
+ ### cloud_firestore
+ ### gradient_borders
+ ### gradient_widgets
+ ### awesome_snackbar_content
+ ### flutter_svg
+ ### simple_gradient_text
+ ### loading_animation_widget
+ ### lottie
+ ### page_transition
+ ### dotlottie_loader
 
 
 ## Contributing
