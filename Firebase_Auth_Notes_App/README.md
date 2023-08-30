@@ -20,3 +20,48 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+
+## Features
+User Authentication: Secure user registration and login using Firebase Authentication.
+
+Real-time Data Sync: Notes are synchronized in real-time across devices using Firestore Database.
+
+Create and Edit Notes: Add new notes and edit existing ones effortlessly.
+
+Rich Text Support: Format your notes with a variety of text styles and formatting options.
+
+Offline Access: Access and edit your notes even when you're offline. Changes will be synced once you're back online.
+
+Responsive Design: The app provides a consistent user experience across different screen sizes.
+
+## Installation
+Clone Repository: git clone https://github.com/ManojSankolSR/Apps.git
+
+Navigate to Directory: cd Firebase_Auth_Notes_App
+
+Install Dependencies: flutter pub get
+
+Setup Firebase:
+
+Create a new project on the Firebase Console.
+Add an Android app to your project and follow the setup instructions to download the google-services.json file.
+Add an iOS app to your project and download the GoogleService-Info.plist file.
+Place the google-services.json file in the android/app directory and the GoogleService-Info.plist file in the ios/Runner directory.
+Run the App: flutter run
+
+## Configuration
+To customize the app for your needs, you can make changes in the following files:
+
+lib/required-files: Update Firebase configuration settings.
+
+## Dependencies
+Flutter
+Firebase Core
+Firebase Authentication
+Cloud Firestore
+Add any other relevant dependencies here.
+
+
+## Contributing
+Contributions are welcome! If you encounter any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
+
