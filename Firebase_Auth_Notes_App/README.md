@@ -55,11 +55,35 @@ To customize the app for your needs, you can make changes in the following files
 lib/required-files: Update Firebase configuration settings.
 
 ## Dependencies
-Flutter
-Firebase Core
-Firebase Authentication
-Cloud Firestore
-Add any other relevant dependencies here.
+# Flutter
+# Firebase Core
+# Firebase Authentication
+ # cupertino_icons
+ # curved_navigation_bar
+ # animations
+ # flutter_staggered_grid_view
+ # flutter_riverpod
+ # uuid
+ # random_color
+ # path_provider
+ # path
+ # sqflite: 
+ # animated_icon
+ # intl
+ # flutter_native_splash
+ # firebase_core
+ # firebase_auth
+ # google_sign_in
+ # cloud_firestore
+ # gradient_borders
+ # gradient_widgets
+ # awesome_snackbar_content
+ # flutter_svg
+ # simple_gradient_text
+ # loading_animation_widget
+ # lottie
+ # page_transition
+ # dotlottie_loader
 
 
 ## Contributing
