@@ -7,10 +7,12 @@ import 'package:ostello/Models/datamodel.dart';
 class datanotifier extends StateNotifier<List<datamodel>> {
   datanotifier() : super(const []);
 
+// USED TO LOAD DATA
   void getdata() async {
     state = centersList;
   }
 
+  //USED TO SEARCH COACHING CENTER BY ENTERING IT'S NAME
   void search(String s) {
     state = centersList
         .where((element) =>
@@ -18,6 +20,7 @@ class datanotifier extends StateNotifier<List<datamodel>> {
         .toList();
   }
 
+  // USED TO SORT THE DATA BASED ON SOME CONDITION LIKE DISTANCE RATING ETC....
   void sortdata(int val) {
     print("Entered sortdata");
     print(val);
@@ -52,6 +55,7 @@ class datanotifier extends StateNotifier<List<datamodel>> {
     }
   }
 
+// USED FILTER DATA BASED ON SOME CONDITIONS
   void selected(int val) async {
     if (val == 2) {
       state = centersList
