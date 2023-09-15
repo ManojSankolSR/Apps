@@ -45,6 +45,11 @@ dependencies:
   lottie: ^2.6.0
   cached_network_image: ^3.2.3
   loading_animation_widget: ^1.2.0+4
+  flutter_sticky_header: ^0.6.5
+  animate_do: ^3.1.2
+  image_pixels: ^3.0.1
+  carousel_slider: ^4.2.1
+  smooth_page_indicator: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +81,10 @@ flutter:
     - lib/Assets/pngicons/sidebarimg.json
     - lib/Assets/pngicons/newsapilogo.png
     - lib/Assets/pngicons/flutterlogo.png
+    - lib/Assets/pngicons/imageplaceholder.json
+    - lib/Assets/pngicons/littleplaceholder.json
+    - lib/Assets/pngicons/loadingnew.json
+    - lib/Assets/pngicons/latestloading.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

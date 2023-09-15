@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+//523997bfe8644e95bda05f80aa58ffbc
+//bae41a80f71c440eafbe3e0e090da45e
 
 const Api_Key = "523997bfe8644e95bda05f80aa58ffbc";
 
@@ -170,6 +172,7 @@ class _homeState extends ConsumerState<home> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+        backgroundColor: Colors.white,
         drawer: Drawer(
           width: 300,
           elevation: 2,
@@ -267,12 +270,12 @@ class _homeState extends ConsumerState<home> {
                 );
               }
               return Center(
-                  child:
-                      LottieBuilder.asset("lib/Assets/pngicons/loading.json"));
+                  child: LottieBuilder.asset(
+                      "lib/Assets/pngicons/loadingnew.json"));
             } else {
               return Center(
-                  child:
-                      LottieBuilder.asset("lib/Assets/pngicons/loading.json"));
+                  child: LottieBuilder.asset(
+                      "lib/Assets/pngicons/loadingnew.json"));
             }
           },
         ));
