@@ -1,6 +1,6 @@
 import 'package:bottom/Providers/DataBaseProvider.dart';
 import 'package:bottom/Providers/EmailPassProvider.dart';
-import 'package:bottom/login.dart';
+import 'package:bottom/Screens/LoginScreen/login.dart';
 import 'package:bottom/main.dart';
 import 'package:bottom/widgets/notifysnackbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -185,6 +185,7 @@ class _page2State extends ConsumerState<page2> {
                   height: 20,
                 ),
                 TextFormField(
+                    obscureText: true,
                     validator: (value) {
                       if (value!.trim().isEmpty || !(value.length > 6)) {
                         return "Password shoud be greater than 6 charecters";

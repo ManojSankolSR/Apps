@@ -60,6 +60,7 @@ dependencies:
   lottie: ^2.6.0
   page_transition: ^2.0.9
   dotlottie_loader: ^0.0.3
+  measured_size: ^1.0.0
 
 
 flutter_native_splash:
@@ -100,6 +101,13 @@ flutter:
     - lib\Assets\images\top.png
     - lib\Assets\images\IOS_search.svg
     - lib\Assets\images\animation_lltd0cpg.json
+    - lib/Assets/images/mainscreen1.json
+    - lib/Assets/images/mainscreen2.json
+    - lib/Assets/images/mainscreenpng.png
+    - lib/Assets/images/notestaking.png
+    - lib/Assets/images/working.json
+    - lib/Assets/images/notetaking.json
+    - lib/Assets/images/loading_screen.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

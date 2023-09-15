@@ -1,8 +1,8 @@
 // ignore: camel_case_types
 import 'package:bottom/Providers/EmailPassProvider.dart';
 import 'package:bottom/main.dart';
-import 'package:bottom/page1.dart';
-import 'package:bottom/page2.dart';
+import 'package:bottom/Screens/LoginScreen/page1.dart';
+import 'package:bottom/Screens/LoginScreen/page2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

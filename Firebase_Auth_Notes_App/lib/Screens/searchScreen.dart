@@ -1,7 +1,7 @@
-import 'package:bottom/HomeScreeen.dart';
+import 'package:bottom/Screens/NotesScreen.dart';
 import 'package:bottom/Models/DataModel.dart';
 import 'package:bottom/Providers/DataBaseProvider.dart';
-import 'package:bottom/new_item.dart';
+import 'package:bottom/Screens/NewNoteScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
@@ -39,7 +39,7 @@ class _searchState extends ConsumerState<search> {
                     Navigator.push(
                         context,
                         PageTransition(
-                          child: NewItem(
+                          child: NewNote(
                             Note: notesList[index],
                             color: Colors
                                 .primaries[index % Colors.primaries.length],
@@ -111,12 +111,6 @@ class _searchState extends ConsumerState<search> {
   @override
   Widget build(BuildContext context) {
     Notes = ref.watch(DataBaseProvider);
-    ref.listen(
-      DataBaseProvider,
-      (previous, next) {
-        print("changed");
-      },
-    );
 
     // TODO: implement build
     return Scaffold(

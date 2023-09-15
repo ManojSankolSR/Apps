@@ -1,5 +1,7 @@
-import 'package:bottom/HomeScreeen.dart';
-import 'package:bottom/login.dart';
+import 'package:bottom/Screens/NotesScreen.dart';
+import 'package:bottom/Screens/LoginScreen/login.dart';
+import 'package:bottom/Screens/HomeScreen.dart';
+import 'package:bottom/Screens/loadinscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -75,14 +77,14 @@ void main() async {
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.none) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             print("waiting");
             return const Scaffold(
               body: Center(child: CircularProgressIndicator()),
             );
           }
           if (snapshot.hasData) {
-            return HomeScreen();
+            return loadingScreen();
           } else {
             return login();
           }

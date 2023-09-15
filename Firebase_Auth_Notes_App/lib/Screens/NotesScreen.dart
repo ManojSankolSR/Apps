@@ -1,8 +1,9 @@
 import 'package:animations/animations.dart';
+import 'package:bottom/Models/DataModel.dart';
 import 'package:bottom/Providers/DataBaseProvider.dart';
 import 'package:bottom/Providers/EmailPassProvider.dart';
-import 'package:bottom/new_item.dart';
-import 'package:bottom/search.dart';
+import 'package:bottom/Screens/NewNoteScreen.dart';
+import 'package:bottom/Screens/searchScreen.dart';
 import 'package:bottom/widgets/showGridView.dart';
 import 'package:bottom/widgets/showListView.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,14 +23,15 @@ import 'package:dotlottie_loader/dotlottie_loader.dart';
 final formatterForDate = DateFormat.yMd();
 final formatterForTime = DateFormat('h:mm a');
 
-class HomeScreen extends ConsumerStatefulWidget {
-  HomeScreen({super.key});
+class NoteScreen extends ConsumerStatefulWidget {
+  final List<DataModel> Notes;
+  NoteScreen({super.key, required this.Notes});
 
   @override
-  ConsumerState<HomeScreen> createState() => _HomeScreen();
+  ConsumerState<NoteScreen> createState() => _NoteScreen();
 }
 
-class _HomeScreen extends ConsumerState<HomeScreen> {
+class _NoteScreen extends ConsumerState<NoteScreen> {
   ScrollController? _scrollController;
   double kExpandedHeight = 180;
 
@@ -43,27 +45,45 @@ class _HomeScreen extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Notes = ref.watch(DataBaseProvider);
     final _load = ref.watch(idustateprovider);
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        automaticallyImplyLeading: false,
         elevation: 0,
         scrolledUnderElevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 11, top: 5),
-          child: GradientText(
-            gradientDirection: GradientDirection.ttb,
-            gradientType: GradientType.linear,
-            "Notes",
-            colors: [
-              const Color.fromARGB(255, 239, 104, 80),
-              Color.fromARGB(255, 127, 7, 135),
-            ],
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.w500),
-          ),
-        ),
         actions: [
+          InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Container(
+              margin: EdgeInsets.only(left: 20, top: 5),
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  color: Colors.black, borderRadius: BorderRadius.circular(50)),
+              child: Icon(
+                Icons.arrow_back_ios_new,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(left: 0, top: 5),
+            child: GradientText(
+              gradientDirection: GradientDirection.ttb,
+              gradientType: GradientType.linear,
+              "Notes",
+              colors: [
+                const Color.fromARGB(255, 239, 104, 80),
+                Color.fromARGB(255, 127, 7, 135),
+              ],
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.w500),
+            ),
+          ),
+          Spacer(),
           IconButton(
               onPressed: () {
                 Navigator.push(
@@ -85,21 +105,13 @@ class _HomeScreen extends ConsumerState<HomeScreen> {
                 });
               },
               icon: Padding(
-                padding: const EdgeInsets.only(right: 0),
+                padding: const EdgeInsets.only(right: 20),
                 child: Icon(
                   _isListView
                       ? Icons.grid_view_rounded
                       : Icons.format_list_bulleted,
                   size: 34,
                 ),
-              )),
-          IconButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              },
-              icon: const Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: Icon(Icons.logout),
               )),
         ],
       ),
@@ -112,8 +124,8 @@ class _HomeScreen extends ConsumerState<HomeScreen> {
                       color: Colors.black, size: 50),
                 )
               : _isListView
-                  ? showListView(notes: Notes)
-                  : showGridView(Notes: Notes),
+                  ? showListView()
+                  : showGridView(),
         ),
       ),
       floatingActionButton: OpenContainer(
@@ -125,7 +137,7 @@ class _HomeScreen extends ConsumerState<HomeScreen> {
           onPressed: action,
           child: const Icon(Icons.add),
         ),
-        openBuilder: (context, action) => NewItem(),
+        openBuilder: (context, action) => NewNote(),
         tappable: true,
       ),
     );

@@ -3,20 +3,20 @@ import 'package:bottom/Providers/DataBaseProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NewItem extends ConsumerStatefulWidget {
+class NewNote extends ConsumerStatefulWidget {
   final DataModel? Note;
   final Color? color;
-  NewItem({
+  NewNote({
     this.Note,
     this.color,
     super.key,
   });
 
   @override
-  ConsumerState<NewItem> createState() => _NewItemState();
+  ConsumerState<NewNote> createState() => _NewNoteState();
 }
 
-class _NewItemState extends ConsumerState<NewItem> {
+class _NewNoteState extends ConsumerState<NewNote> {
   @override
   Widget build(BuildContext context) {
     final noteController = widget.Note == null

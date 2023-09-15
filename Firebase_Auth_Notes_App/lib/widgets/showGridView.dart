@@ -1,21 +1,23 @@
 import 'package:bottom/Models/DataModel.dart';
-import 'package:bottom/new_item.dart';
+import 'package:bottom/Screens/NewNoteScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:bottom/Providers/DataBaseProvider.dart';
-import 'package:bottom/HomeScreeen.dart';
+import 'package:bottom/Screens/NotesScreen.dart';
 import 'package:animations/animations.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class showGridView extends ConsumerWidget {
-  final List<DataModel> Notes;
-  showGridView({super.key, required this.Notes});
+  showGridView({
+    super.key,
+  });
   void snack(BuildContext context) {}
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final List<DataModel> Notes = ref.watch(DataBaseProvider);
     return Notes.isEmpty
         ? Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -74,7 +76,7 @@ class showGridView extends ConsumerWidget {
                     Navigator.push(
                         context,
                         PageTransition(
-                            child: NewItem(
+                            child: NewNote(
                               Note: Notes[index],
                               color: Colors
                                   .primaries[index % Colors.primaries.length],

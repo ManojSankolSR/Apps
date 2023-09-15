@@ -1,8 +1,8 @@
 import 'package:bottom/Models/DataModel.dart';
-import 'package:bottom/new_item.dart';
+import 'package:bottom/Screens/NewNoteScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bottom/HomeScreeen.dart';
+import 'package:bottom/Screens/NotesScreen.dart';
 import 'package:animations/animations.dart';
 import 'package:bottom/Providers/DataBaseProvider.dart';
 import 'package:lottie/lottie.dart';
@@ -10,16 +10,18 @@ import 'package:page_transition/page_transition.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class showListView extends ConsumerWidget {
-  final List<DataModel> notes;
-  showListView({super.key, required this.notes});
+  showListView({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final List<DataModel> notes = ref.watch(DataBaseProvider);
     // TODO: implement build
     return notes.isEmpty
         ? Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               LottieBuilder.asset('lib/Assets/images/animation_lltd0cpg.json',
                   frameRate: FrameRate.max),
@@ -72,7 +74,7 @@ class showListView extends ConsumerWidget {
                       Navigator.push(
                           context,
                           PageTransition(
-                            child: NewItem(
+                            child: NewNote(
                               Note: notes[index],
                               color: Colors
                                   .primaries[index % Colors.primaries.length],

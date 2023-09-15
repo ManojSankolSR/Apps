@@ -81,7 +81,7 @@ class DataBaseNotifier extends StateNotifier<List<DataModel>> {
     ref.read(idustateprovider.notifier).state = false;
   }
 
-  void getData() async {
+  Future<List<DataModel>> getData() async {
     // final db = await _getdatabase();
     // final data = await db.query('Note');
     // final dataList = data
@@ -106,6 +106,7 @@ class DataBaseNotifier extends StateNotifier<List<DataModel>> {
         .toList();
 
     state = dataList;
+    return dataList;
   }
 }
 
