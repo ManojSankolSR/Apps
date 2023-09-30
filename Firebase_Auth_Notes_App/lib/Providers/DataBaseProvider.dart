@@ -7,19 +7,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
 import 'package:sqflite/sqflite.dart';
+import 'package:bottom/Models/RemainderModel.dart';
 
 class DataBaseNotifier extends StateNotifier<List<DataModel>> {
   DataBaseNotifier(this.ref) : super(const []);
   Ref ref;
 
   void addNote(DataModel Note) async {
-    // final db = await _getdatabase();
-    // db.insert('Note', {
-    //   'Id': Note.id,
-    //   'Date': Note.date.toString(),
-    //   'Title': Note.title,
-    //   'Note': Note.note,
-    // });
     ref.read(idustateprovider.notifier).state = true;
 
     FirebaseFirestore.instance
@@ -38,10 +32,6 @@ class DataBaseNotifier extends StateNotifier<List<DataModel>> {
   }
 
   Future<DataModel> delete(DataModel Note) async {
-    // final db = await _getdatabase();
-    // await db.delete('Note', where: 'Id=?', whereArgs: [
-    //   Note.id,
-    // ]);
     FirebaseFirestore.instance
         .collection("Users")
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -55,16 +45,6 @@ class DataBaseNotifier extends StateNotifier<List<DataModel>> {
   }
 
   void update(DataModel Note) async {
-    // await db.update(
-    //     'Note',
-    //     {
-    //       'Id': id,
-    //       'Date': DateTime.now().toString(),
-    //       'Title': title,
-    //       'Note': note,
-    //     },
-    //     where: 'Id=?',
-    //     whereArgs: [id]);
     ref.read(idustateprovider.notifier).state = true;
     await FirebaseFirestore.instance
         .collection("Users")
@@ -82,15 +62,6 @@ class DataBaseNotifier extends StateNotifier<List<DataModel>> {
   }
 
   Future<List<DataModel>> getData() async {
-    // final db = await _getdatabase();
-    // final data = await db.query('Note');
-    // final dataList = data
-    //     .map((row) => DataModel(
-    //         id: row['Id'] as String,
-    //         date: DateTime.parse(row['Date'] as String),
-    //         title: row['Title'] as String,
-    //         note: row['Note'] as String))
-    //     .toList();
     final data = await FirebaseFirestore.instance
         .collection("Users")
         .doc(FirebaseAuth.instance.currentUser!.uid)

@@ -1,8 +1,8 @@
 // ignore: camel_case_types
 import 'package:bottom/Providers/EmailPassProvider.dart';
 import 'package:bottom/main.dart';
-import 'package:bottom/Screens/LoginScreen/page1.dart';
-import 'package:bottom/Screens/LoginScreen/page2.dart';
+import 'package:bottom/Screens/LoginScreens/page1.dart';
+import 'package:bottom/Screens/LoginScreens/page2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -141,7 +141,7 @@ class _loginState extends ConsumerState<login> {
                     }
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
@@ -167,9 +167,18 @@ class _loginState extends ConsumerState<login> {
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500),
                               ),
-                              Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: Colors.white,
+                              Container(
+                                padding: EdgeInsets.all(4),
+                                margin: EdgeInsets.only(left: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white.withOpacity(0.2),
+                                ),
+                                child: Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
                               )
                             ],
                           ),

@@ -1,6 +1,6 @@
 import 'package:bottom/Providers/DataBaseProvider.dart';
 import 'package:bottom/Providers/EmailPassProvider.dart';
-import 'package:bottom/Screens/LoginScreen/login.dart';
+import 'package:bottom/Screens/LoginScreens/login.dart';
 import 'package:bottom/main.dart';
 import 'package:bottom/widgets/notifysnackbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,8 +46,12 @@ class _page2State extends ConsumerState<page2> {
               .createUserWithEmailAndPassword(
                   email: _Email!, password: _password!);
           if (context.mounted) {
-            Notify("Login Sucess", "Welcome Back ${user.user!.email!}", context,
-                ContentType.success);
+            (
+              "Login Sucess",
+              "Welcome Back ${user.user!.email!}",
+              context,
+              ContentType.success
+            );
           }
         } else {
           final user = await FirebaseAuth.instance

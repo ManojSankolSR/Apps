@@ -1,4 +1,6 @@
 import 'package:bottom/Models/DataModel.dart';
+import 'package:bottom/Providers/RemainderProvider.dart';
+import 'package:bottom/Remainders/NewNoteScreen.dart';
 import 'package:bottom/Screens/NewNoteScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,18 +8,23 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:bottom/Providers/DataBaseProvider.dart';
 import 'package:bottom/Screens/NotesScreen.dart';
 import 'package:animations/animations.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class showGridView extends ConsumerWidget {
+  final List Notes;
+  final bool isRemainder;
   showGridView({
+    required this.isRemainder,
+    required this.Notes,
     super.key,
   });
   void snack(BuildContext context) {}
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<DataModel> Notes = ref.watch(DataBaseProvider);
+    //  = ref.watch(DataBaseProvider);
     return Notes.isEmpty
         ? Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -46,16 +53,43 @@ class showGridView extends ConsumerWidget {
               return Dismissible(
                 key: Key(Notes[index].id),
                 onDismissed: (direction) async {
-                  final delnote = await ref
-                      .read(DataBaseProvider.notifier)
-                      .delete(Notes[index]);
-                  if (context.mounted) {
+                  if (!isRemainder) {
+                    final delnote = await ref
+                        .read(DataBaseProvider.notifier)
+                        .delete(Notes[index]);
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).clearSnackBars();
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          duration: const Duration(seconds: 2),
+                          content: Row(
+                            children: [
+                              const Text("Note Deleted"),
+                              TextButton(
+                                  onPressed: () async {
+                                    if (context.mounted) {
+                                      ScaffoldMessenger.of(context)
+                                          .clearSnackBars();
+                                    }
+                                    ref
+                                        .read(DataBaseProvider.notifier)
+                                        .addNote(delnote);
+                                  },
+                                  child: const Text('Undo...'))
+                            ],
+                          )));
+                    }
+                  }
+                  if (isRemainder) {
+                    final DelNote = await ref
+                        .read(RemainderProvider.notifier)
+                        .delete(Notes[index]);
                     ScaffoldMessenger.of(context).clearSnackBars();
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        duration: const Duration(seconds: 2),
+                        duration: Duration(seconds: 2),
                         content: Row(
                           children: [
                             const Text("Note Deleted"),
+                            const Spacer(),
                             TextButton(
                                 onPressed: () async {
                                   if (context.mounted) {
@@ -63,8 +97,8 @@ class showGridView extends ConsumerWidget {
                                         .clearSnackBars();
                                   }
                                   ref
-                                      .read(DataBaseProvider.notifier)
-                                      .addNote(delnote);
+                                      .read(RemainderProvider.notifier)
+                                      .addRemainder(DelNote);
                                 },
                                 child: const Text('Undo...'))
                           ],
@@ -76,22 +110,112 @@ class showGridView extends ConsumerWidget {
                     Navigator.push(
                         context,
                         PageTransition(
-                            child: NewNote(
-                              Note: Notes[index],
-                              color: Colors
-                                  .primaries[index % Colors.primaries.length],
-                            ),
+                            child: isRemainder
+                                ? NewNoteR(
+                                    Note: Notes[index],
+                                    color: Colors.primaries[
+                                        index % Colors.primaries.length],
+                                  )
+                                : NewNote(
+                                    Note: Notes[index],
+                                    color: Colors.primaries[
+                                        index % Colors.primaries.length],
+                                  ),
                             type: PageTransitionType.rightToLeft));
                   },
                   child: Container(
+                    margin: EdgeInsets.all(5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: Colors.primaries[index % Colors.primaries.length],
+                      color: Colors
+                          .primaries[index % Colors.primaries.length].shade100,
                     ),
                     child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            if (!isRemainder)
+                              Text(
+                                DateFormat('EEEE').format(Notes[index].date),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.primaries[
+                                      index % Colors.primaries.length],
+                                ),
+                              ),
+                            if (isRemainder)
+                              Text(
+                                "Remainder on",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.primaries[
+                                      index % Colors.primaries.length],
+                                ),
+                              ),
+                            if (isRemainder)
+                              SizedBox(
+                                height: 5,
+                              ),
+                            if (isRemainder)
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.calendar_month_outlined,
+                                    size: 20,
+                                    color: Colors.primaries[
+                                        index % Colors.primaries.length],
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    "${formatterForDate.format(Notes[index].rdate)}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Colors.primaries[
+                                          index % Colors.primaries.length],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            if (isRemainder)
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.alarm,
+                                    size: 20,
+                                    color: Colors.primaries[
+                                        index % Colors.primaries.length],
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    "${formatterForTime.format(Notes[index].rdate)}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Colors.primaries[
+                                          index % Colors.primaries.length],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              height: .5,
+                              color: Colors
+                                  .primaries[index % Colors.primaries.length],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [

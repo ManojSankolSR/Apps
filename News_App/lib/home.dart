@@ -143,29 +143,6 @@ class _homeState extends ConsumerState<home> {
       sportsNewsList,
       technologyNewsList
     ];
-
-    // final response = await http.get(url);
-
-    // print(response.statusCode);
-
-    // if (response.statusCode == 200) {
-    //   final Map<String, dynamic> data = jsonDecode(response.body);
-    //   final List<dynamic> news = data["articles"];
-    //   list = news.map((e) => datamodel.fromJson(e)).toList();
-    //   print(list);
-    //   // for (var ele in data) {
-    //   //   list.add(
-    //   //     datamodel(
-    //   //         body: ele["body"],
-    //   //         id: ele["id"],
-    //   //         userid: ele["userId"],
-    //   //         title: ele["title"]),
-    //   //   );
-    //   // }
-    //   return list;
-    // } else {
-    //   return list;
-    // }
   }
 
   @override

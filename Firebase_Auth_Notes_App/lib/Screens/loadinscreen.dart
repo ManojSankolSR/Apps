@@ -18,9 +18,19 @@ class loadingScreen extends ConsumerWidget {
         } else {
           return Scaffold(
               body: Center(
-            child: LoadingAnimationWidget.staggeredDotsWave(
-                color: Colors.blueAccent, size: 150),
-          ));
+                  child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Spacer(),
+              Image.asset(
+                "lib/Assets/images/notelogo.png",
+              ),
+              Spacer(),
+              LoadingAnimationWidget.prograssiveDots(
+                  color: Colors.pink[300]!, size: 80)
+            ],
+          )));
         }
       },
     );

@@ -17,286 +17,137 @@ class tabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return MediaQuery.removePadding(
-      context: context,
-      removeTop: true,
-      child: SliverList(
-        delegate: SliverChildBuilderDelegate(childCount: news.length,
-            (context, index) {
-          return InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: NewsInfoScreen(News: news[index]),
-                      type: PageTransitionType.rightToLeft));
-            },
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-              constraints: BoxConstraints(maxHeight: 130, minHeight: 100),
-              width: MediaQuery.of(context).size.width * .90,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 10),
-                    height: 110,
+    return CustomScrollView(slivers: [
+      SliverList(
+          delegate: SliverChildBuilderDelegate(childCount: news.length,
+              (context, index) {
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                PageTransition(
+                    child: NewsInfoScreen(News: news[index]),
+                    type: PageTransitionType.rightToLeft));
+          },
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            constraints: BoxConstraints(maxHeight: 130, minHeight: 100),
+            width: MediaQuery.of(context).size.width * .90,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  height: 110,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(162, 56, 255, 0.612),
+                      borderRadius: BorderRadius.circular(50)),
+                  width: 7,
+                ),
+                CachedNetworkImage(
+                  imageUrl: "${news[index].urlToImage}",
+                  imageBuilder: (context, imageProvider) => Container(
+                    margin: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                    width: 100,
                     decoration: BoxDecoration(
-                        color: Color.fromRGBO(162, 56, 255, 0.612),
-                        borderRadius: BorderRadius.circular(50)),
-                    width: 7,
-                  ),
-                  CachedNetworkImage(
-                    imageUrl: "${news[index].urlToImage}",
-                    imageBuilder: (context, imageProvider) => Container(
-                      margin: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                      width: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: NetworkImage(news[index].urlToImage)),
-                      ),
-                    ),
-                    placeholder: (context, url) => Container(
-                      margin: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                      width: 100,
-                      child: Center(
-                        child: LottieBuilder.asset(
-                            "lib/Assets/pngicons/latestloading.json"),
-                      ),
-                    ),
-                    errorWidget: (context, url, error) => Container(
-                      margin: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                      width: 100,
-                      child: Center(
-                        child: LottieBuilder.asset(
-                            "lib/Assets/pngicons/latestloading.json"),
-                      ),
+                      borderRadius: BorderRadius.circular(16),
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage(news[index].urlToImage)),
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 10, top: 0, right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            child: Text(
-                              news[index].title.characters.take(110).toString(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
+                  placeholder: (context, url) => Container(
+                    margin: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                    width: 100,
+                    child: Center(
+                      child: LottieBuilder.asset(
+                          "lib/Assets/pngicons/latestloading.json"),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    margin: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                    width: 100,
+                    child: Center(
+                      child: LottieBuilder.asset(
+                          "lib/Assets/pngicons/latestloading.json"),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, top: 0, right: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            news[index].title.characters.take(110).toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Color.fromRGBO(216, 180, 248, 100),
+                                  borderRadius: BorderRadius.circular(5)),
+                              padding: EdgeInsets.all(5),
+                              child: Text(
+                                news[index].author == "null"
+                                    ? "Not Avilable"
+                                    : news[index]
+                                        .author
+                                        .characters
+                                        .take(20)
+                                        .toString(),
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(216, 180, 248, 100),
-                                    borderRadius: BorderRadius.circular(5)),
-                                padding: EdgeInsets.all(5),
-                                child: Text(
-                                  news[index].author == "null"
-                                      ? "Not Avilable"
-                                      : news[index]
-                                          .author
-                                          .characters
-                                          .take(20)
-                                          .toString(),
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                            Spacer(),
+                            Column(
+                              children: [
+                                Text(
+                                  news[index].publishedAt == "null"
+                                      ? "Not Available"
+                                      : formatterForTime.format(DateTime.parse(
+                                          news[index].publishedAt)),
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromRGBO(162, 56, 255, 0.612),
+                                  ),
                                 ),
-                              ),
-                              Spacer(),
-                              Column(
-                                children: [
-                                  Text(
-                                    news[index].publishedAt == "null"
-                                        ? "Not Available"
-                                        : formatterForTime.format(
-                                            DateTime.parse(
-                                                news[index].publishedAt)),
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                      color:
-                                          Color.fromRGBO(162, 56, 255, 0.612),
-                                    ),
+                                Text(
+                                  news[index].publishedAt == "null"
+                                      ? "Not Available"
+                                      : formatterForDate.format(DateTime.parse(
+                                          news[index].publishedAt)),
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromRGBO(162, 56, 255, 0.612),
                                   ),
-                                  Text(
-                                    news[index].publishedAt == "null"
-                                        ? "Not Available"
-                                        : formatterForDate.format(
-                                            DateTime.parse(
-                                                news[index].publishedAt)),
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                      color:
-                                          Color.fromRGBO(162, 56, 255, 0.612),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          );
-        }),
-        // child: ListView.builder(
-        //   scrollDirection: Axis.vertical,
-        //   itemCount: news.length,
-        //   itemBuilder: (context, index) {
-        //     return InkWell(
-        //       onTap: () {
-        //         Navigator.push(
-        //             context,
-        //             PageTransition(
-        //                 child: NewsInfoScreen(News: news[index]),
-        //                 type: PageTransitionType.rightToLeft));
-        //       },
-        //       child: Container(
-        //         margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-        //         constraints: BoxConstraints(maxHeight: 130, minHeight: 100),
-        //         width: MediaQuery.of(context).size.width * .90,
-        //         child: Row(
-        //           mainAxisAlignment: MainAxisAlignment.center,
-        //           crossAxisAlignment: CrossAxisAlignment.center,
-        //           children: [
-        //             Container(
-        //               margin: EdgeInsets.only(left: 10),
-        //               height: 110,
-        //               decoration: BoxDecoration(
-        //                   color: Color.fromRGBO(162, 56, 255, 0.612),
-        //                   borderRadius: BorderRadius.circular(50)),
-        //               width: 7,
-        //             ),
-        //             CachedNetworkImage(
-        //               imageUrl: "${news[index].urlToImage}",
-        //               imageBuilder: (context, imageProvider) => Container(
-        //                 margin: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-        //                 width: 100,
-        //                 decoration: BoxDecoration(
-        //                   borderRadius: BorderRadius.circular(16),
-        //                   image: DecorationImage(
-        //                       fit: BoxFit.fill,
-        //                       image: NetworkImage(news[index].urlToImage)),
-        //                 ),
-        //               ),
-        //               placeholder: (context, url) => Container(
-        //                 margin: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-        //                 width: 100,
-        //                 child: Center(
-        //                   child: LoadingAnimationWidget.beat(
-        //                       color: Color.fromRGBO(162, 56, 255, 0.612),
-        //                       size: 40),
-        //                 ),
-        //               ),
-        //               errorWidget: (context, url, error) => Container(
-        //                 margin: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-        //                 width: 100,
-        //                 child: Center(
-        //                   child: Icon(
-        //                     Icons.error,
-        //                     size: 40,
-        //                     color: Color.fromRGBO(162, 56, 255, 0.612),
-        //                   ),
-        //                 ),
-        //               ),
-        //             ),
-        //             Expanded(
-        //               child: Padding(
-        //                 padding:
-        //                     const EdgeInsets.only(left: 10, top: 0, right: 10),
-        //                 child: Column(
-        //                   mainAxisAlignment: MainAxisAlignment.center,
-        //                   children: [
-        //                     Flexible(
-        //                       child: Text(
-        //                         news[index].title.characters.take(110).toString(),
-        //                         style: TextStyle(
-        //                             fontWeight: FontWeight.bold, fontSize: 15),
-        //                       ),
-        //                     ),
-        //                     SizedBox(
-        //                       height: 10,
-        //                     ),
-        //                     Row(
-        //                       mainAxisAlignment: MainAxisAlignment.center,
-        //                       crossAxisAlignment: CrossAxisAlignment.center,
-        //                       children: [
-        //                         Container(
-        //                           decoration: BoxDecoration(
-        //                               color: Color.fromRGBO(216, 180, 248, 100),
-        //                               borderRadius: BorderRadius.circular(5)),
-        //                           padding: EdgeInsets.all(5),
-        //                           child: Text(
-        //                             news[index].author == "null"
-        //                                 ? "Not Avilable"
-        //                                 : news[index]
-        //                                     .author
-        //                                     .characters
-        //                                     .take(20)
-        //                                     .toString(),
-        //                             style: TextStyle(fontWeight: FontWeight.bold),
-        //                           ),
-        //                         ),
-        //                         Spacer(),
-        //                         Column(
-        //                           children: [
-        //                             Text(
-        //                               news[index].publishedAt == "null"
-        //                                   ? "Not Available"
-        //                                   : formatterForTime.format(
-        //                                       DateTime.parse(
-        //                                           news[index].publishedAt)),
-        //                               style: TextStyle(
-        //                                 fontSize: 13,
-        //                                 fontWeight: FontWeight.w400,
-        //                                 color:
-        //                                     Color.fromRGBO(162, 56, 255, 0.612),
-        //                               ),
-        //                             ),
-        //                             Text(
-        //                               news[index].publishedAt == "null"
-        //                                   ? "Not Available"
-        //                                   : formatterForDate.format(
-        //                                       DateTime.parse(
-        //                                           news[index].publishedAt)),
-        //                               style: TextStyle(
-        //                                 fontSize: 13,
-        //                                 fontWeight: FontWeight.w400,
-        //                                 color:
-        //                                     Color.fromRGBO(162, 56, 255, 0.612),
-        //                               ),
-        //                             ),
-        //                           ],
-        //                         ),
-        //                       ],
-        //                     ),
-        //                   ],
-        //                 ),
-        //               ),
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        //     );
-        //   },
-        // ),
-      ),
-    );
+          ),
+        );
+      })),
+    ]);
   }
 }

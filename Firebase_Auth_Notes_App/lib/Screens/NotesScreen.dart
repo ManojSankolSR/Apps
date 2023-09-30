@@ -1,7 +1,10 @@
 import 'package:animations/animations.dart';
 import 'package:bottom/Models/DataModel.dart';
+import 'package:bottom/Models/RemainderModel.dart';
 import 'package:bottom/Providers/DataBaseProvider.dart';
 import 'package:bottom/Providers/EmailPassProvider.dart';
+import 'package:bottom/Providers/RemainderProvider.dart';
+import 'package:bottom/Remainders/NewNoteScreen.dart';
 import 'package:bottom/Screens/NewNoteScreen.dart';
 import 'package:bottom/Screens/searchScreen.dart';
 import 'package:bottom/widgets/showGridView.dart';
@@ -24,8 +27,11 @@ final formatterForDate = DateFormat.yMd();
 final formatterForTime = DateFormat('h:mm a');
 
 class NoteScreen extends ConsumerStatefulWidget {
-  final List<DataModel> Notes;
-  NoteScreen({super.key, required this.Notes});
+  final bool isRemainder;
+  NoteScreen({
+    required this.isRemainder,
+    super.key,
+  });
 
   @override
   ConsumerState<NoteScreen> createState() => _NoteScreen();
@@ -45,6 +51,10 @@ class _NoteScreen extends ConsumerState<NoteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _islight =
+        Theme.of(context).brightness == Brightness.light ? true : false;
+    final List<DataModel> Notes = ref.watch(DataBaseProvider);
+    final List<RemainderModel> remainders = ref.watch(RemainderProvider);
     final _load = ref.watch(idustateprovider);
 
     return Scaffold(
@@ -62,10 +72,11 @@ class _NoteScreen extends ConsumerState<NoteScreen> {
               margin: EdgeInsets.only(left: 20, top: 5),
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
-                  color: Colors.black, borderRadius: BorderRadius.circular(50)),
+                  color: _islight ? Colors.black : Colors.white,
+                  borderRadius: BorderRadius.circular(50)),
               child: Icon(
                 Icons.arrow_back_ios_new,
-                color: Colors.white,
+                color: _islight ? Colors.white : Colors.black,
               ),
             ),
           ),
@@ -75,11 +86,15 @@ class _NoteScreen extends ConsumerState<NoteScreen> {
             child: GradientText(
               gradientDirection: GradientDirection.ttb,
               gradientType: GradientType.linear,
-              "Notes",
-              colors: [
-                const Color.fromARGB(255, 239, 104, 80),
-                Color.fromARGB(255, 127, 7, 135),
-              ],
+              widget.isRemainder ? "Remainders" : "Notes",
+              colors: _islight
+                  ? [
+                      Colors.black,
+                      Colors.black
+                      // const Color.fromARGB(255, 239, 104, 80),
+                      // Color.fromARGB(255, 127, 7, 135),
+                    ]
+                  : [Colors.white, Colors.white],
               style: TextStyle(fontSize: 32, fontWeight: FontWeight.w500),
             ),
           ),
@@ -111,33 +126,48 @@ class _NoteScreen extends ConsumerState<NoteScreen> {
                       ? Icons.grid_view_rounded
                       : Icons.format_list_bulleted,
                   size: 34,
+                  color: _islight ? Colors.black : Colors.white,
                 ),
               )),
         ],
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(10),
           child: _load
               ? Center(
                   child: LoadingAnimationWidget.dotsTriangle(
                       color: Colors.black, size: 50),
                 )
               : _isListView
-                  ? showListView()
-                  : showGridView(),
+                  ? showListView(
+                      notes: widget.isRemainder ? remainders : Notes,
+                      isReminder: widget.isRemainder,
+                    )
+                  : showGridView(
+                      isRemainder: widget.isRemainder,
+                      Notes: widget.isRemainder ? remainders : Notes,
+                    ),
         ),
       ),
       floatingActionButton: OpenContainer(
+        // closedColor: Colors.black,
+        // openColor: Colors.black,
         closedElevation: 5,
-        closedShape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        closedShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
         transitionType: ContainerTransitionType.fade,
         closedBuilder: (context, action) => FloatingActionButton(
+          backgroundColor: _islight ? Colors.black : Colors.white,
           onPressed: action,
-          child: const Icon(Icons.add),
+          child: Icon(
+            Icons.add,
+            color: _islight ? Colors.white : Colors.black,
+          ),
         ),
-        openBuilder: (context, action) => NewNote(),
+        openBuilder: (context, action) =>
+            widget.isRemainder ? NewNoteR() : NewNote(),
         tappable: true,
       ),
     );
